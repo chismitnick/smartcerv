@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import java.util.HashMap;
@@ -14,43 +15,40 @@ import java.util.Map;
 
 import zm.gov.moh.app.R;
 import zm.gov.moh.app.databinding.FirstPointOfContactActivityBinding;
-import zm.gov.moh.app.viewmodel.FirstPointOfContactViewModel;
+import zm.gov.moh.app.viewmodel.HomeViewModel;
 import zm.gov.moh.cervicalcancer.view.CervicalCancerHomeFragment;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.common.view.CommonHomeFragment;
-import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.service.SearchIndex;
 
 
 public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnFragmentInteractionListener {
 
-    FirstPointOfContactViewModel firstPointOfContactViewModel;
+    HomeViewModel homeViewModel;
     Map<String,Long> metrics;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_point_of_contact_activity);
 
-        firstPointOfContactViewModel = ViewModelProviders.of(this).get(FirstPointOfContactViewModel.class);
-        setViewModel(firstPointOfContactViewModel);
-
-        final long SESSION_LOCATION_ID = this.getViewModel().getRepository().getDefaultSharePrefrences()
-                .getLong(this.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
-
-
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        setViewModel(homeViewModel);
 
         metrics = new HashMap<>();
 
-      FirstPointOfContactActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.first_point_of_contact_activity);
+        FirstPointOfContactActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.first_point_of_contact_activity);
+
+        initToolBar(binding.getRoot());
 
 
-        firstPointOfContactViewModel.getStartSubmodule().observe(this, startSubmoduleObserver);
+        homeViewModel.getStartSubmodule().observe(this, startSubmoduleObserver);
 
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
-        toolBarEventHandler.setTitle("Home");
-        binding.setToolbarhandler(toolBarEventHandler);
+        binding.setTitle("Home");
         binding.setContext(this);
-
+        addDrawer(this);
         Fragment common = new CommonHomeFragment();
 
         Fragment cervicalCancer = new CervicalCancerHomeFragment();
@@ -59,11 +57,11 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
 
         FragmentTransaction transaction = fragmentTransitionSupport.beginTransaction();
 
-
+        startService(new Intent(this,SearchIndex.class));
 
     }
 
-    final Observer<Submodule> startSubmoduleObserver = this::startSubmodule;
+    final Observer<Module> startSubmoduleObserver = this::startModule;
 
     @Override
     public void onFragmentInteraction(Uri uri) {

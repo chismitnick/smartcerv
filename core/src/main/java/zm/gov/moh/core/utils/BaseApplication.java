@@ -7,35 +7,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import zm.gov.moh.core.model.submodule.Submodule;
-import zm.gov.moh.core.model.submodule.SubmoduleGroup;
+import zm.gov.moh.core.model.submodule.ModuleGroup;
 
 public class BaseApplication extends Application {
 
-
-    protected Map<String, Submodule> submodules;
-    protected ArrayList<SubmoduleGroup> firstPointOfCareSubmodules;
+    protected String buildName;
+    protected Map<String, zm.gov.moh.core.model.submodule.Module> submodules;
+    protected ArrayList<ModuleGroup> firstPointOfCareSubmodules;
+    private boolean isSynchronizing = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        //Load submodules
+        //Load modules
         submodules = new HashMap<>();
         firstPointOfCareSubmodules = new ArrayList<>();
     }
-
-    public Submodule getSubmodule(String submodule){
+    public String getBuildName() {
+        return buildName;
+    }
+    public zm.gov.moh.core.model.submodule.Module getModule(String submodule){
 
         return submodules.get(submodule);
     }
 
-    public void registerModule(String name, Submodule submodule){
+    public void registerModule(String name, zm.gov.moh.core.model.submodule.Module module){
 
-        submodules.put(name , submodule);
+        submodules.put(name , module);
     }
 
-    public void loadFirstPointOfCareSubmodule(SubmoduleGroup submodule){
+    public void loadFirstPointOfCareSubmodule(ModuleGroup submodule){
 
         firstPointOfCareSubmodules.add(submodule);
     }
@@ -50,6 +52,9 @@ public class BaseApplication extends Application {
         public static final String VITALS = "VITALS";
         public static final String CLIENT_DASHOARD = "CLIENT_DASHOARD";
         public static final String FORM = "FORM";
+        public static final String VISIT = "VISIT";
+        public static final String SETTINGS = "SETTINGS";
+        public static final String BOOTSTRAP = "BOOTSTRAP";
     }
 
     public class Module {
@@ -57,9 +62,17 @@ public class BaseApplication extends Application {
         public static final String CERVICAL_CANCER = "CERVICAL_CANCER";
     }
 
-    public List<SubmoduleGroup> getCareServices(){
+    public List<ModuleGroup> getCareServices(){
 
         return firstPointOfCareSubmodules;
+    }
+
+    public void setSynchronizing(boolean synchronizing) {
+        isSynchronizing = synchronizing;
+    }
+
+    public boolean isSynchronizing() {
+        return isSynchronizing;
     }
 }
 

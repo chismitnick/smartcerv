@@ -16,14 +16,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import zm.gov.moh.cervicalcancer.ModuleConfig;
+import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.R;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.Key;
-import zm.gov.moh.core.repository.database.entity.domain.Visit;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 
 import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.renderCheckMarkIconView;
 import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.dateCellView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,36 +79,36 @@ public class PatientDashboardVisitTypeFragment extends Fragment {
         tableRow.setBackground(context.getResources().getDrawable(R.drawable.border_bottom));
 
         tableRow.addView(dateCellView(context,date));
-        tableRow.addView(renderCheckMarkIconView(context, visitCompleted.get(ModuleConfig.VISIT_TYPE_ID_INTIAL_VIA)));
-        tableRow.addView(renderCheckMarkIconView(context,  visitCompleted.get(ModuleConfig.VISIT_TYPE_ID_DELAYED_CRYOTHERAPHY_THERMAL_COAGULATION)));
-        tableRow.addView(renderCheckMarkIconView(context, visitCompleted.get(ModuleConfig.VISIT_TYPE_ID_POST_TREATMENT_COMPILATION)));
-        tableRow.addView(renderCheckMarkIconView(context, visitCompleted.get(ModuleConfig.VISIT_TYPE_ID_ONE_YEAR_FOLLOW_UP) ));
-        tableRow.addView(renderCheckMarkIconView(context, visitCompleted.get(ModuleConfig.VISIT_TYPE_ID_ROUTINE_SCREENING)));
-        tableRow.addView(renderCheckMarkIconView(context, visitCompleted.get(ModuleConfig.VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION)));
+        tableRow.addView(renderCheckMarkIconView(context, visitCompleted.get(OpenmrsConfig.VISIT_TYPE_ID_INTIAL_VIA)));
+        tableRow.addView(renderCheckMarkIconView(context,  visitCompleted.get(OpenmrsConfig.VISIT_TYPE_ID_DELAYED_CRYOTHERAPHY_THERMAL_COAGULATION)));
+        tableRow.addView(renderCheckMarkIconView(context, visitCompleted.get(OpenmrsConfig.VISIT_TYPE_ID_POST_TREATMENT_COMPILATION)));
+        tableRow.addView(renderCheckMarkIconView(context, visitCompleted.get(OpenmrsConfig.VISIT_TYPE_ID_ONE_YEAR_FOLLOW_UP) ));
+        tableRow.addView(renderCheckMarkIconView(context, visitCompleted.get(OpenmrsConfig.VISIT_TYPE_ID_ROUTINE_SCREENING)));
+        tableRow.addView(renderCheckMarkIconView(context, visitCompleted.get(OpenmrsConfig.VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION)));
 
         tableLayout.addView(tableRow);
     }
 
-    public void recordCompletedVisits(List<Visit> visitList){
+    public void recordCompletedVisits(List<VisitEntity> visitList){
 
         HashMap<Long, Boolean> visitCompleted;
         visitCompleted = new HashMap<>();
 
-        Iterator<Visit> visitIterator = visitList.iterator();
+        Iterator<VisitEntity> visitIterator = visitList.iterator();
 
             while (visitIterator.hasNext()) {
 
-                visitCompleted.put(ModuleConfig.VISIT_TYPE_ID_INTIAL_VIA, false);
-                visitCompleted.put(ModuleConfig.VISIT_TYPE_ID_POST_TREATMENT_COMPILATION, false);
-                visitCompleted.put(ModuleConfig.VISIT_TYPE_ID_DELAYED_CRYOTHERAPHY_THERMAL_COAGULATION, false);
-                visitCompleted.put(ModuleConfig.VISIT_TYPE_ID_ONE_YEAR_FOLLOW_UP, false);
-                visitCompleted.put(ModuleConfig.VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION, false);
-                visitCompleted.put(ModuleConfig.VISIT_TYPE_ID_ROUTINE_SCREENING, false);
+                visitCompleted.put(OpenmrsConfig.VISIT_TYPE_ID_INTIAL_VIA, false);
+                visitCompleted.put(OpenmrsConfig.VISIT_TYPE_ID_POST_TREATMENT_COMPILATION, false);
+                visitCompleted.put(OpenmrsConfig.VISIT_TYPE_ID_DELAYED_CRYOTHERAPHY_THERMAL_COAGULATION, false);
+                visitCompleted.put(OpenmrsConfig.VISIT_TYPE_ID_ONE_YEAR_FOLLOW_UP, false);
+                visitCompleted.put(OpenmrsConfig.VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION, false);
+                visitCompleted.put(OpenmrsConfig.VISIT_TYPE_ID_ROUTINE_SCREENING, false);
 
 
-                Visit visit = visitIterator.next();
-                String date = visit.date_started.format(DateTimeFormatter.ISO_LOCAL_DATE);
-                long visitTypeId = visit.getVisit_type_id();
+                VisitEntity visit = visitIterator.next();
+                String date = visit.getDateStarted().format(DateTimeFormatter.ISO_LOCAL_DATE);
+                long visitTypeId = visit.getVisitTypeId();
 
                 visitCompleted.put(visitTypeId,true);
 
