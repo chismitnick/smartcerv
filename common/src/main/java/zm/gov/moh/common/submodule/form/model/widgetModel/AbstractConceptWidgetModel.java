@@ -1,8 +1,7 @@
 package zm.gov.moh.common.submodule.form.model.widgetModel;
 
-public abstract class AbstractConceptWidgetModel extends OpenmrsEntity implements ConceptWidgetModel,LabelModel,FormEditTextModel,WidgetModel{
+public abstract class AbstractConceptWidgetModel extends AbstractWidgetModel implements ConceptWidgetModel,LabelModel,FormEditTextModel,WidgetModel{
 
-    @Deprecated
     private long conceptId;
     private String dataType;
     private String label;
@@ -10,15 +9,6 @@ public abstract class AbstractConceptWidgetModel extends OpenmrsEntity implement
     private String hint;
     private String text;
     private String style;
-    protected String futureDate;
-
-    public String getFutureDate() {
-        return futureDate;
-    }
-
-    public void setFutureDate(String futureDate) {
-        this.futureDate = futureDate;
-    }
 
     @Override
     public long getConceptId() {

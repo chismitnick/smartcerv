@@ -5,9 +5,4 @@ public class DatePickerButtonModel extends AbstractButtonModel {
     public DatePickerButtonModel(){
         super();
     }
-
-    @Override
-    public void setLabel(String label) {
-
-    }
 }

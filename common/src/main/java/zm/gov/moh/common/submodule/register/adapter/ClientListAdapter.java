@@ -12,17 +12,17 @@ import java.util.List;
 import zm.gov.moh.common.databinding.ClientDemographicsBinding;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.register.view.RegisterActivity;
-import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
-import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.model.submodule.Submodule;
 
 public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.ClientViewHolder> {
 
     private LayoutInflater mInflater;
     private List<Client> clientList;
     private BaseActivity context;
-    private Module clientDashboad;
+    private Submodule clientDashboad;
     private Bundle bundle;
 
     class ClientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -46,20 +46,21 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         public void onClick(View view) {
 
             Client client = clientList.get(getAdapterPosition());
-            long clientId = client.getPatientId();
+            long clientId = client.patient_id;
             bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
 
-            Module call = ((BaseApplication)context.getApplication()).getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
-           context.startModule(call, bundle);
+            Submodule call = (Submodule) context.getIntent().getSerializableExtra(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY);
+           context.startSubmodule(call, bundle);
         }
 
     }
+
     public ClientListAdapter(Context context){
 
         mInflater = LayoutInflater.from(context);
         this.context = (BaseActivity) context;
         BaseApplication applicationContext = (BaseApplication)((BaseActivity) context).getApplication();
-        clientDashboad = applicationContext.getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
+        clientDashboad = applicationContext.getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
         bundle = new Bundle();
     }
 

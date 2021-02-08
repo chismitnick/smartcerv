@@ -7,7 +7,6 @@ public class ObsValue<T> implements Serializable {
     private long conceptId;
     private T value;
     private String conceptDataType;
-    private String uuid;
 
     public ObsValue(){}
 
@@ -40,13 +39,5 @@ public class ObsValue<T> implements Serializable {
 
     public String getConceptDataType() {
         return conceptDataType;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 }

@@ -9,9 +9,10 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import android.os.Bundle;
 import android.util.TypedValue;
 
-import zm.gov.moh.core.model.Key;
+import java.util.HashMap;
+
 import zm.gov.moh.core.repository.api.Repository;
-import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.repository.database.entity.derived.ProviderUser;
 
 public class ProviderLabelWidget extends LinearLayoutCompat {
 
@@ -35,10 +36,10 @@ public class ProviderLabelWidget extends LinearLayoutCompat {
         this.addView(label);
         this.addView(value);
 
-        long providerId = repository.getDefaultSharePrefrences()
-                .getLong(Key.PROVIDER_ID,0);
+        String userUuid = repository.getDefaultSharePrefrences()
+                .getString(context.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key),"Not Found");
 
-        repository.getDatabase().personNameDao().getByProviderId(providerId).observe((AppCompatActivity)context,this::setProviderName);
+        repository.getDatabase().providerUserDao().getAllByUserUuid(userUuid).observe((AppCompatActivity)context,this::setProvider);
     }
 
     public void setLabelText(String text) {
@@ -59,9 +60,14 @@ public class ProviderLabelWidget extends LinearLayoutCompat {
         value.setTextSize(TypedValue.COMPLEX_UNIT_SP,size);
     }
 
-    private void setProviderName(PersonName personName) {
+    private void setProvider(ProviderUser providerUser) {
 
-        String displayName = personName.getGivenName()+" "+personName.getFamilyName();
+        String displayName = providerUser.given_name+" "+providerUser.family_name;
         setTextValue(displayName);
+        this.bundle.putLong((String)getTag(), providerUser.provider_id);
+    }
+
+    public void setFormData(Bundle bundle){
+        this.bundle = bundle;
     }
 }

@@ -2,96 +2,37 @@ package zm.gov.moh.core.repository.database.entity.domain;
 
 import org.threeten.bp.LocalDateTime;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
-
-import com.squareup.moshi.Json;
 
 @Entity
-public class Concept extends SynchronizableEntity {
+public class Concept {
 
     @PrimaryKey
-    @ColumnInfo(name = "concept_id")
-    @Json(name = "concept_id")
-    public long conceptId;
-
-    @ColumnInfo(name = "retired")
-    @Json(name = "retired")
+    public long concept_id;
     private short retired;
-
-    @ColumnInfo(name = "short_name")
-    @Json(name = "short_name")
-    private String shortName;
-
-    @ColumnInfo(name = "description")
-    @Json(name = "description")
+    private String short_name;
     private String description;
-
-    @ColumnInfo(name = "form_text")
-    @Json(name = "form_text")
-    private String formText;
-
-    @ColumnInfo(name = "datatype_id")
-    @Json(name = "datatype_id")
-    private Long datatypeId;
-
-    @ColumnInfo(name = "class_id")
-    @Json(name = "class_id")
-    private Long classId;
-
-    @ColumnInfo(name = "is_set")
-    @Json(name = "is_set")
-    private short isSet;
-
-    @ColumnInfo(name = "creator")
-    @Json(name = "creator")
+    private String form_text;
+    private Long datatype_id;
+    private Long class_id;
+    private short is_set;
     private Long creator;
-
-    @ColumnInfo(name = "date_created")
-    @Json(name = "date_created")
-    private LocalDateTime dateCreated;
-
-    @ColumnInfo(name = "version")
-    @Json(name = "version")
+    private LocalDateTime date_created;
     private String version;
-
-    @ColumnInfo(name = "changed_by")
-    @Json(name = "changed_by")
-    private Long changedBy;
-
-    @ColumnInfo(name = "date_changed")
-    @Json(name = "date_changed")
-    private LocalDateTime dateChanged;
-
-    @ColumnInfo(name = "retired_by")
-    @Json(name = "retired_by")
-    private Long retiredBy;
-
-    @ColumnInfo(name = "date_retired")
-    @Json(name = "date_retired")
-    private LocalDateTime dateRetired;
-
-    @ColumnInfo(name = "retired_reason")
-    @Json(name = "retired_reason")
-    private String retiredReason;
-
-    @ColumnInfo(name = "uuid")
-    @Json(name = "uuid")
+    private Long changed_by;
+    private LocalDateTime date_changed;
+    private Long retired_by;
+    private LocalDateTime date_retired;
+    private String retired_reason;
     private String uuid;
 
-    public long getConceptId() {
-        return conceptId;
+    public long getConcept_id() {
+        return concept_id;
     }
 
-    @Override
-    public long getId() {
-        return conceptId;
-    }
-
-    public void setConceptId(long conceptId) {
-        this.conceptId = conceptId;
+    public void setConcept_id(long concept_id) {
+        this.concept_id = concept_id;
     }
 
     public short getRetired() {
@@ -102,12 +43,12 @@ public class Concept extends SynchronizableEntity {
         this.retired = retired;
     }
 
-    public String getShortName() {
-        return shortName;
+    public String getShort_name() {
+        return short_name;
     }
 
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
+    public void setShort_name(String short_name) {
+        this.short_name = short_name;
     }
 
     public String getDescription() {
@@ -118,36 +59,36 @@ public class Concept extends SynchronizableEntity {
         this.description = description;
     }
 
-    public String getFormText() {
-        return formText;
+    public String getForm_text() {
+        return form_text;
     }
 
-    public void setFormText(String formText) {
-        this.formText = formText;
+    public void setForm_text(String form_text) {
+        this.form_text = form_text;
     }
 
-    public Long getDatatypeId() {
-        return datatypeId;
+    public Long getDatatype_id() {
+        return datatype_id;
     }
 
-    public void setDatatypeId(Long datatypeId) {
-        this.datatypeId = datatypeId;
+    public void setDatatype_id(Long datatype_id) {
+        this.datatype_id = datatype_id;
     }
 
-    public Long getClassId() {
-        return classId;
+    public Long getClass_id() {
+        return class_id;
     }
 
-    public void setClassId(Long classId) {
-        this.classId = classId;
+    public void setClass_id(Long class_id) {
+        this.class_id = class_id;
     }
 
-    public short getIsSet() {
-        return isSet;
+    public short getIs_set() {
+        return is_set;
     }
 
-    public void setIsSet(short isSet) {
-        this.isSet = isSet;
+    public void setIs_set(short is_set) {
+        this.is_set = is_set;
     }
 
     public Long getCreator() {
@@ -158,12 +99,12 @@ public class Concept extends SynchronizableEntity {
         this.creator = creator;
     }
 
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
+    public LocalDateTime getDate_created() {
+        return date_created;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDate_created(LocalDateTime date_created) {
+        this.date_created = date_created;
     }
 
     public String getVersion() {
@@ -174,44 +115,44 @@ public class Concept extends SynchronizableEntity {
         this.version = version;
     }
 
-    public Long getChangedBy() {
-        return changedBy;
+    public Long getChanged_by() {
+        return changed_by;
     }
 
-    public void setChangedBy(Long changedBy) {
-        this.changedBy = changedBy;
+    public void setChanged_by(Long changed_by) {
+        this.changed_by = changed_by;
     }
 
-    public LocalDateTime getDateChanged() {
-        return dateChanged;
+    public LocalDateTime getDate_changed() {
+        return date_changed;
     }
 
-    public void setDateChanged(LocalDateTime dateChanged) {
-        this.dateChanged = dateChanged;
+    public void setDate_changed(LocalDateTime date_changed) {
+        this.date_changed = date_changed;
     }
 
-    public Long getRetiredBy() {
-        return retiredBy;
+    public Long getRetired_by() {
+        return retired_by;
     }
 
-    public void setRetiredBy(Long retiredBy) {
-        this.retiredBy = retiredBy;
+    public void setRetired_by(Long retired_by) {
+        this.retired_by = retired_by;
     }
 
-    public LocalDateTime getDateRetired() {
-        return dateRetired;
+    public LocalDateTime getDate_retired() {
+        return date_retired;
     }
 
-    public void setDateRetired(LocalDateTime dateRetired) {
-        this.dateRetired = dateRetired;
+    public void setDate_retired(LocalDateTime date_retired) {
+        this.date_retired = date_retired;
     }
 
-    public String getRetiredReason() {
-        return retiredReason;
+    public String getRetired_reason() {
+        return retired_reason;
     }
 
-    public void setRetiredReason(String retiredReason) {
-        this.retiredReason = retiredReason;
+    public void setRetired_reason(String retired_reason) {
+        this.retired_reason = retired_reason;
     }
 
     public String getUuid() {

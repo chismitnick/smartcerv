@@ -20,8 +20,4 @@ public interface ClientFtsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ClientNameFts... clientNameFts);
-
-    @Query("DELETE FROM client_name_fts")
-    public void clear();
-
 }

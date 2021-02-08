@@ -1,22 +1,18 @@
 package zm.gov.moh.core.repository.database;
 
+import androidx.room.*;
 import android.content.Context;
 
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
-import zm.gov.moh.core.repository.database.dao.custom.IdentifierDao;
+import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
 import zm.gov.moh.core.repository.database.dao.derived.ClientDao;
 import zm.gov.moh.core.repository.database.dao.derived.ConceptAnswerNameDao;
 import zm.gov.moh.core.repository.database.dao.derived.FacilityDistrictCodeDao;
-import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
 import zm.gov.moh.core.repository.database.dao.derived.MetricsDao;
-import zm.gov.moh.core.repository.database.dao.derived.PersonIdentifierDao;
 import zm.gov.moh.core.repository.database.dao.derived.ProviderUserDao;
+import zm.gov.moh.core.repository.database.dao.derived.VitalsDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptAnswerDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptNameDao;
-import zm.gov.moh.core.repository.database.dao.domain.DrugDao;
 import zm.gov.moh.core.repository.database.dao.domain.EncounterDao;
 import zm.gov.moh.core.repository.database.dao.domain.EncounterProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.EncounterTypeDao;
@@ -34,21 +30,15 @@ import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
-import zm.gov.moh.core.repository.database.dao.domain.ProviderAttributeDao;
-import zm.gov.moh.core.repository.database.dao.domain.ProviderAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.ProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.UserDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitTypeDao;
 import zm.gov.moh.core.repository.database.dao.fts.ClientFtsDao;
-import zm.gov.moh.core.repository.database.dao.system.EntityMetadataDao;
-import zm.gov.moh.core.repository.database.entity.custom.Identifier;
-import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
-import zm.gov.moh.core.repository.database.entity.domain.Drug;
-import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
+import zm.gov.moh.core.repository.database.entity.domain.Encounter;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterRole;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterType;
@@ -57,36 +47,33 @@ import zm.gov.moh.core.repository.database.entity.domain.LocationAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.LocationAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.LocationTag;
 import zm.gov.moh.core.repository.database.entity.domain.LocationTagMap;
-import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
-import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
-import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
+import zm.gov.moh.core.repository.database.entity.domain.Obs;
+import zm.gov.moh.core.repository.database.entity.domain.Patient;
+import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierType;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
-import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.Provider;
-import zm.gov.moh.core.repository.database.entity.domain.ProviderAttribute;
-import zm.gov.moh.core.repository.database.entity.domain.ProviderAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.User;
-import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
+import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import zm.gov.moh.core.repository.database.entity.domain.VisitAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.VisitAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.VisitType;
 import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
-import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 
 @androidx.room.Database(
         entities = {
 
                 Person.class,
                 PersonAddress.class,
-                PersonAttributeEntity.class,
+                PersonAttribute.class,
                 PersonAttributeType.class,
                 PersonName.class,
-                PatientEntity.class,
-                PatientIdentifierEntity.class,
+                Patient.class,
+                PatientIdentifier.class,
                 PatientIdentifierType.class,
                 Location.class,
                 LocationTag.class,
@@ -94,28 +81,21 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 LocationAttribute.class,
                 LocationAttributeType.class,
                 Provider.class,
-                ProviderAttribute.class,
-                ProviderAttributeType.class,
                 User.class,
-                ObsEntity.class,
-                EncounterEntity.class,
+                Obs.class,
+                Encounter.class,
                 EncounterProvider.class,
                 EncounterRole.class,
                 EncounterType.class,
-                VisitEntity.class,
+                Visit.class,
                 VisitType.class,
                 VisitAttribute.class,
                 VisitAttributeType.class,
                 ClientNameFts.class,
                 ConceptName.class,
                 ConceptAnswer.class,
-                Concept.class,
-                EntityMetadata.class,
-                Drug.class,
-                Identifier.class,
-                PersonIdentifier.class
-
-        }, version = 5, exportSchema = false)
+                Concept.class
+        }, version = 2, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
@@ -137,8 +117,6 @@ public abstract class Database extends RoomDatabase {
     public abstract ProviderUserDao providerUserDao();
     public abstract UserDao userDao();
     public abstract ProviderDao providerDao();
-    public abstract ProviderAttributeDao providerAttributeDao();
-    public abstract ProviderAttributeTypeDao providerAttributeTypeDao();
     public abstract PatientDao patientDao();
     public abstract PatientIdentifierDao patientIdentifierDao();
     public abstract PatientIdentifierTypeDao patientIdentifierTypeDao();
@@ -154,17 +132,13 @@ public abstract class Database extends RoomDatabase {
     public abstract ConceptNameDao conceptNameDao();
     public abstract ConceptDao conceptDao();
     public abstract ConceptAnswerNameDao conceptAnswerNameDao();
-    public abstract DrugDao drugDao();
-    public abstract IdentifierDao identifierDao();
+
 
     //Derived
     public abstract ClientDao clientDao();
+    public abstract VitalsDao vitalsDao();
     public abstract FacilityDistrictCodeDao facilityDistrictCodeDao();
     public abstract GenericDao genericDao();
-    public abstract PersonIdentifierDao personIdentifierDao();
-
-    //System
-    public abstract EntityMetadataDao entityMetadataDao();
 
     //database getter
     public static Database getDatabase(final Context context){
@@ -172,13 +146,74 @@ public abstract class Database extends RoomDatabase {
         if (dbInstance == null)
               synchronized (Database.class){
                   if (dbInstance == null)
-                     dbInstance = Room.databaseBuilder(context.getApplicationContext(),Database.class, DATABASE_NAME)
-                             .addMigrations(Migrations.MIGRATION_2_3)
-                             .addMigrations(Migrations.MIGRATION_3_4)
-                             .addMigrations(Migrations.MIGRATION_4_5)
-                             .build();
+                     dbInstance = Room.databaseBuilder(context.getApplicationContext(),Database.class, DATABASE_NAME).fallbackToDestructiveMigration().build();
               }
 
          return dbInstance;
     }
 }
+
+/**
+ *
+ *package com.example.zita.architecturecomponent.repository.database;
+ *
+ * import android.arch.persistence.db.SupportSQLiteDatabase;
+ * import android.arch.persistence.room.Database;
+ * import android.arch.persistence.room.Room;
+ * import android.arch.persistence.room.RoomDatabase;
+ * import android.content.Context;
+ * import android.os.AsyncTask;
+ * import android.support.annotation.NonNull;
+ *
+ * import com.example.zita.architecturecomponent.repository.database.doa.PersonDoa;
+ * import com.example.zita.architecturecomponent.repository.database.entity.Person;
+ *
+ * @Database(entities = {Person.class}, version = 1)
+ * public abstract class AppDB extends RoomDatabase {
+ *
+ *     static volatile AppDB dbInstance;
+ *
+ *     public abstract PersonDoa personDoa();
+ *
+ *     private static RoomDatabase.Callback dbCallback = new Callback() {
+ *         @Override
+ *         public void onOpen(@NonNull SupportSQLiteDatabase db) {
+ *             super.onOpen(db);
+ *
+ *             new PopulateDb(dbInstance).execute();
+ *
+ *         }
+ *     };
+ *
+ *     public static AppDB getDB(final Context context){
+ *         if (dbInstance == null)
+ *             synchronized (AppDB.class){
+ *                 if (dbInstance == null){
+ *                     dbInstance = Room.databaseBuilder(context.getApplicationContext(),AppDB.class,"appdb").build();
+ *                 }
+ *             }
+ *         return dbInstance;
+ *     }
+ *
+ *
+ *
+ *     private static class PopulateDb extends AsyncTask<Void,Void,Void>{
+ *
+ *         PersonDoa mPersonDoa;
+ *         PopulateDb(AppDB database){
+ *             mPersonDoa = database.personDoa();
+ *         }
+ *
+ *         @Override
+ *         protected Void doInBackground(Void... voids) {
+ *
+ *             Person person1 = new Person("Zita","Tembo","Dev");
+ *             Person person2 = new Person("Tony","Tembo","DevOps");
+ *             mPersonDoa.insert(person1);
+ *             mPersonDoa.insert(person2);
+ *
+ *             return null;
+ *         }
+ *     }
+ * }
+ */

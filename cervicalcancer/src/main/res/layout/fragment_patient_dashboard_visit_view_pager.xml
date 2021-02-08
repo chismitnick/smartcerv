@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardActivity">
+    tools:context=".submodule.dashboard.patient.view.PatientDashboardVisitViewPagerFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/sliding_tabs"
@@ -18,4 +18,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white" />
+
 </LinearLayout>

@@ -8,21 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-import java.util.List;
-
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.databinding.ActivityCervicalCancerRegisterBinding;
 import zm.gov.moh.cervicalcancer.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.cervicalcancer.submodule.register.viewmodel.RegisterViewModel;
-import zm.gov.moh.common.base.BaseActivity;
-import zm.gov.moh.common.base.BaseEventHandler;
-import zm.gov.moh.common.ui.BaseRegisterActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 
-
-public class RegisterActivity extends BaseRegisterActivity {
+public class RegisterActivity extends BaseActivity {
 
     RegisterViewModel registerViewModel;
-    ClientListAdapter clientListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,31 +28,36 @@ public class RegisterActivity extends BaseRegisterActivity {
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
 
-        setViewModel(registerViewModel);
-        binding.setTitle("Client Register");
-        binding.setSearchTermObserver(searchTermObserver);
-        initToolBar(binding.getRoot());
+        ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
+        toolBarEventHandler.setTitle("Client Register");
+
+        binding.setToolbarhandler(toolBarEventHandler);
+
+
+        /*if(bundle != null){
+
+            try {
+                getIntent().getExtras().getSerializable(START_SUBMODULE_WITH_RESULT_KEY);
+            }catch (Exception e){
+                getIntent().getExtras().putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultSubmodule);
+            }
+        }
+        else {
+
+            bundle = new Bundle();
+            bundle.putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultSubmodule);
+            getIntent().putExtras(bundle);
+        }*/
 
 
         RecyclerView clientRecyclerView = findViewById(R.id.client_list);
 
         clientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        clientListAdapter = new ClientListAdapter(this);
+        final ClientListAdapter clientListAdapter = new ClientListAdapter(this);
 
         clientRecyclerView.setAdapter(clientListAdapter);
-        getAllClient();
-    }
 
-    @Override
-    public void matchedSearchId(List<Long> ids) {
-        registerViewModel.getMatchedClients(ids).observe(this, clientListAdapter::setClientList);
-    }
-
-    @Override
-    public void getAllClient() {
         registerViewModel.getAllClients().observe(this, clientListAdapter::setClientList);
-        setViewModel(registerViewModel);
-        addDrawer(this);
     }
 }

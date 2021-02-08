@@ -14,34 +14,34 @@ import java.util.Map;
 
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.model.Criteria;
-import zm.gov.moh.core.model.submodule.BasicModuleGroup;
-import zm.gov.moh.core.model.submodule.CriteriaModule;
-import zm.gov.moh.core.model.submodule.Module;
-import zm.gov.moh.core.model.submodule.ModuleGroup;
-import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.core.model.submodule.BasicSubmoduleGroup;
+import zm.gov.moh.core.model.submodule.CriteriaSubmodule;
+import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.model.submodule.SubmoduleGroup;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter {
 
     private BaseActivity context;
-    private List<ModuleGroup> submoduleGroups;
+    private List<SubmoduleGroup> submoduleGroups;
     private Bundle bundle;
-    private Module formModule;
+    private Submodule formSubmodule;
 
-    public CareServicesExpandableListAdapter(Context context, List<ModuleGroup> submoduleGroups, Bundle bundle) {
+    public CareServicesExpandableListAdapter(Context context, List<SubmoduleGroup> submoduleGroups,Bundle bundle) {
 
         this.context = (BaseActivity) context;
         this.submoduleGroups = submoduleGroups;
         this.bundle = bundle;
-        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getModule(BaseApplication.CoreModule.FORM);
+        this.formSubmodule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
     }
 
     @Override
-    public Module getChild(int groupPosition, int childPosition) {
+    public Submodule getChild(int groupPosition, int childPosition) {
 
-        List<Module> modules = submoduleGroups.get(groupPosition).getModules();
+        List<Submodule> submodules = submoduleGroups.get(groupPosition).getSubmodules();
 
-        return modules.get(childPosition);
+        return submodules.get(childPosition);
     }
 
     @Override
@@ -52,18 +52,18 @@ public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
 
-        Module module = getChild(groupPosition, childPosition);
+        Submodule submodule = (Submodule) getChild(groupPosition, childPosition);
         if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = infalInflater.inflate(R.layout.submodule_group_child_item, null);
         }
 
-        TextView sequence = view.findViewById(R.id.submodule_group_child_item_title);
-        sequence.setText(module.getName());
+        TextView sequence = (TextView) view.findViewById(R.id.submodule_group_child_item_title);
+        sequence.setText(submodule.getName());
 
         view.setOnClickListener(view1 ->{
-            context.startModule(module, bundle);
+            context.startSubmodule(submodule, bundle);
         });
 
         return view;
@@ -72,8 +72,8 @@ public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter
     @Override
     public int getChildrenCount(int groupPosition) {
 
-        List<Module> modules = submoduleGroups.get(groupPosition).getModules();
-        return modules.size();
+        List<Submodule> submodules = submoduleGroups.get(groupPosition).getSubmodules();
+        return submodules.size();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter
     @Override
     public View getGroupView(int groupPosition, boolean isLastChild, View view, ViewGroup parent) {
 
-        CriteriaModule submoduleGroup = (BasicModuleGroup) getGroup(groupPosition);
+        CriteriaSubmodule submoduleGroup = (BasicSubmoduleGroup) getGroup(groupPosition);
 
         Map<String,String> gender = new HashMap<>();
 
@@ -110,7 +110,7 @@ public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter
             view = inf.inflate(R.layout.submodule_group_item, null);
         }
 
-        TextView heading = view.findViewById(R.id.submodule_group_item_title);
+        TextView heading = (TextView) view.findViewById(R.id.submodule_group_item_title);
         heading.setText(submoduleGroup.getName());
 
 
