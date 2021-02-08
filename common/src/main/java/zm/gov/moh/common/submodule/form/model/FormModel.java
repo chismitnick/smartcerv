@@ -1,12 +1,11 @@
 package zm.gov.moh.common.submodule.form.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import zm.gov.moh.common.submodule.form.model.attribute.FormAttribute;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetSectionModel;
 
-public class FormModel implements Serializable {
+public class FormModel {
 
     private FormAttribute attributes;
     private List<WidgetSectionModel> widgetGroup;

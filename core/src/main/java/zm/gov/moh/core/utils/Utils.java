@@ -5,18 +5,15 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.View;
-
-import androidx.appcompat.app.AlertDialog;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 
 import okhttp3.Credentials;
@@ -59,7 +56,7 @@ public class Utils {
                .setPositiveButton("OK",null);
     }
 
-    public static DatePickerDialog dateDialog(Context context, View view, DatePickerDialog.OnDateSetListener onDateSetListener){
+    public static void dateDialog(Context context,View view, DatePickerDialog.OnDateSetListener onDateSetListener){
 
         // calender class's instance and get current date , month and year from calender
         final Calendar c = Calendar.getInstance();
@@ -68,24 +65,15 @@ public class Utils {
         int day = c.get(Calendar.DAY_OF_MONTH); // current day
         DatePickerDialog datePickerDialog = new DatePickerDialog(context, onDateSetListener , year, month, day);
 
-
         // perform click event on edit text
         view.setOnClickListener(view1 -> datePickerDialog.show());
-
-        return datePickerDialog;
-
-
-
-
     }
-
-
 
     public static String getStringFromInputStream(InputStream stream) throws IOException {
 
         int n = 0;
         char[] buffer = new char[1024 * 4];
-        InputStreamReader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
+        InputStreamReader reader = new InputStreamReader(stream, "UTF8");
         StringWriter writer = new StringWriter();
         while (-1 != (n = reader.read(buffer))) writer.write(buffer, 0, n);
         return writer.toString();
@@ -112,14 +100,6 @@ public class Utils {
 
         return reversed;
     }
-
-    public static Boolean isNumber(String string){
-
-        if(string != null)
-            return string.matches("\\d+(?:\\.\\d+)?");
-        return null;
-    }
-
 
 
 

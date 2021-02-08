@@ -5,12 +5,12 @@ import androidx.fragment.app.Fragment;
 
 import java.io.Serializable;
 
-import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.model.submodule.Submodule;
 
 public class BaseFragment extends Fragment implements Serializable {
 
     protected static final String JSON_FORM_KEY = "JSON_FORM_KEY";
-    protected LiveData<Module> startSubmodule;
+    protected LiveData<Submodule> startSubmodule;
 
 
 

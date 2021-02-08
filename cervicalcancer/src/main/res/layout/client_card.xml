@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/background_register"
+        android:background="@color/card_detailing"
         android:elevation="2dp"
-        tools:context=".module.dashboard.client.view.ClientDashboardActivity">
+        tools:context=".submodule.dashboard.client.view.ClientDashboardActivity">
 
         <ImageView
             android:id="@+id/imageView4"
@@ -22,10 +22,8 @@
             android:layout_height="113dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:elevation="2dp"
             android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/avartar" />
@@ -37,7 +35,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@{client.getIdentifier}"
+            android:text="@{client.identifier}"
             android:textColor="@color/darker_grey"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/client_name"
@@ -52,7 +50,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="8dp"
-            android:text="@{client.getGivenName+` `+client.getFamilyName}"
+            android:text="@{client.given_name+` `+client.family_name}"
             android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginBottom="40dp"
-            android:text="@{String.valueOf(LocalDate.now().getYear - client.getBirthDate.getYear())+`years`}"
+            android:text="@{String.valueOf(LocalDate.now().getYear - client.birthdate.getYear())+`years`}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView4" />
 
@@ -95,7 +93,6 @@
             android:layout_marginBottom="8dp"
             android:text="HIV:"
             android:textStyle="bold"
-            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/client_age"
             app:layout_constraintTop_toTopOf="parent"
@@ -108,7 +105,6 @@
             android:layout_marginBottom="8dp"
             android:text="NR"
             android:textColor="@color/red"
-            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView5" />
     </androidx.constraintlayout.widget.ConstraintLayout>

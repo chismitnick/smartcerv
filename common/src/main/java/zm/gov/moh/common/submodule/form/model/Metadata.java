@@ -1,10 +1,9 @@
 package zm.gov.moh.common.submodule.form.model;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-public class Metadata implements Serializable {
+public class Metadata{
 
     private Set<String> tags;
 

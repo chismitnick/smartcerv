@@ -4,17 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/recents_menu_item_id"
+        android:id="@+id/register_select"
         android:title="@string/recents"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/ic_round_history_24px">
     </item>
     <item
-        android:id="@+id/insights_menu_item_id"
-        android:title="@string/insights"
+        android:id="@+id/visit_select"
+        android:title="@string/visit"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_timeline_24px">
+        android:icon="@android:drawable/ic_menu_today">
+    </item>
+    <item
+        android:id="@+id/vitals_select"
+        android:title="@string/vitals"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@mipmap/vitals">
     </item>
 </menu>

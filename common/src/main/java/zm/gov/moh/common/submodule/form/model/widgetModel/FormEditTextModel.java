@@ -1,8 +1,6 @@
 package zm.gov.moh.common.submodule.form.model.widgetModel;
 
-import java.io.Serializable;
-
-public interface FormEditTextModel extends Serializable {
+public interface FormEditTextModel {
 
     void setHint(String hint);
     void setText(String text);

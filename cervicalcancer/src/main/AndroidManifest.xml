@@ -8,6 +8,9 @@
             android:label="MOH mCare - SmartCerv"
             android:theme="@style/Smartcerv" />
         <activity
+            android:name="zm.gov.moh.common.submodule.registration.view.RegistrationActivity"
+            android:label="SmartCerv" />
+        <activity
             android:name=".submodule.enrollment.view.CervicalCancerEnrollmentActivity"
             android:label="MOH mCare - SmartCerv"
             android:theme="@style/Smartcerv" />
@@ -17,13 +20,7 @@
         <activity
             android:name=".submodule.dashboard.patient.view.PatientDashboardActivity"
             android:theme="@style/Smartcerv" />
-        <activity android:name=".view.CervicalCancerHomeActivity" />
-
+        <activity android:name=".view.CervicalCancerHomeActivity"></activity>
     </application>
-
-
-    <meta-data
-        android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/file_paths" />
 
 </manifest>

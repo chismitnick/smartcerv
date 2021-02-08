@@ -10,7 +10,7 @@
         <variable name="bloodPressureDiabolic" type="double"/>
         <variable name="bloodOxygen" type="double"/>
         <variable name="coremodule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
-        <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
+        <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
         <variable name="bundle" type="android.os.Bundle"/>
     </data>
 
@@ -19,12 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".module.vitals.view.VitalsActivity">
+        tools:context=".submodule.vitals.view.VitalsActivity">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,9 +33,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/border_bottom"
                     android:gravity="center_vertical"
-                    android:padding="5dp">
+                    android:padding="5dp"
+                    android:background="@drawable/border_bottom">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -53,9 +52,9 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal"
+                        android:textColor="@color/black"
                         android:text="@{(height > 0.0)?String.valueOf(height)+`cm`:`---`}"
-                        android:textColor="@color/black" />
+                        android:gravity="center_horizontal" />
 
                 </TableRow>
 
@@ -63,8 +62,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/border_bottom"
                     android:gravity="center_vertical"
+                    android:background="@drawable/border_bottom"
                     android:padding="5dp">
 
                     <TextView
@@ -82,9 +81,9 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
+                        android:textColor="@color/black"
                         android:gravity="center_horizontal"
-                        android:text="@{(weight > 0.0)? String.valueOf(weight)+`Kg`:`---`}"
-                        android:textColor="@color/black" />
+                        android:text="@{(weight > 0.0)? String.valueOf(weight)+`Kg`:`---`}" />
 
                 </TableRow>
 
@@ -92,8 +91,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/border_bottom"
                     android:gravity="center_vertical"
+                    android:background="@drawable/border_bottom"
                     android:padding="5dp">
 
                     <TextView
@@ -111,9 +110,9 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
+                        android:textColor="@color/black"
                         android:gravity="center_horizontal"
-                        android:text="@{(height > 0.0 &amp;&amp; weight > 0.0)?String.format(`%.1f`,weight / ((height/100) * (height/100))):`---`}"
-                        android:textColor="@color/black" />
+                        android:text="@{(height > 0.0 &amp;&amp; weight > 0.0)?String.format(`%.1f`,weight / ((height/100) * (height/100))):`---`}" />
 
                 </TableRow>
 
@@ -121,8 +120,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/border_bottom"
                     android:gravity="center_vertical"
+                    android:background="@drawable/border_bottom"
                     android:padding="5dp">
 
                     <TextView
@@ -140,18 +139,18 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
+                        android:textColor="@color/black"
                         android:gravity="center_horizontal"
-                        android:text="@{(temperature > 0.0)? String.valueOf(temperature)+`C`:`---`}"
-                        android:textColor="@color/black" />
+                        android:text="@{(temperature > 0.0)? String.valueOf(temperature)+`C`:`---`}" />
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/border_bottom"
                     android:gravity="center_vertical"
-                    android:padding="5dp">
+                    android:padding="5dp"
+                    android:background="@drawable/border_bottom">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -168,9 +167,9 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
+                        android:textColor="@color/black"
                         android:gravity="center_horizontal"
-                        android:text="@{(pulse > 0.0)?String.valueOf(pulse)+`/min`:`---`}"
-                        android:textColor="@color/black" />
+                        android:text="@{(pulse > 0.0)?String.valueOf(pulse)+`/min`:`---`}" />
 
                 </TableRow>
 
@@ -178,8 +177,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/border_bottom"
                     android:gravity="center_vertical"
+                    android:background="@drawable/border_bottom"
                     android:padding="5dp">
 
                     <TextView
@@ -197,9 +196,9 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
+                        android:textColor="@color/black"
                         android:gravity="center_horizontal"
-                        android:text="@{(respiration > 0.0)?String.valueOf(respiration)+`/min`:`---`}"
-                        android:textColor="@color/black" />
+                        android:text="@{(respiration > 0.0)?String.valueOf(respiration)+`/min`:`---`}" />
 
                 </TableRow>
 
@@ -207,8 +206,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/border_bottom"
                     android:gravity="center_vertical"
+                    android:background="@drawable/border_bottom"
                     android:padding="5dp">
 
                     <TextView
@@ -227,20 +226,20 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@{(bloodPressureSysbolic > 0.0 &amp;&amp; bloodPressureDiabolic > 0.0 )? String.valueOf(bloodPressureSysbolic)+`/`+String.valueOf(bloodPressureDiabolic):`---/---`}"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:text="@{(bloodPressureSysbolic > 0.0 &amp;&amp; bloodPressureDiabolic > 0.0 )? String.valueOf(bloodPressureSysbolic)+`/`+String.valueOf(bloodPressureDiabolic):`---/---`}" />
                 </TableRow>
 
                 <Button
                     android:id="@+id/client_dashbord_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:onClick="@{() -> context.startSubmodule(coremodule.VITALS,bundle)}"
                     android:layout_marginHorizontal="100dp"
                     android:layout_marginVertical="10dp"
                     android:background="@color/light_green"
-                    android:onClick="@{() -> context.startModule(coremodule.VITALS,bundle)}"
-                    android:text="Update"
-                    android:textColor="@color/white" />
+                    android:text="Update"/>
             </TableLayout>
         </ScrollView>
 
